@@ -66,22 +66,18 @@ public class EcommerceTest {
             driver.findElement(By.xpath("(//a[contains(text(), 'View Product')])[1]")).click();
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='product-information']")));
             takeScreenshot(driver, "screenshots/3_product_view.png");
-
+            
             driver.findElement(By.name("quantity")).clear();
             driver.findElement(By.name("quantity")).sendKeys("1");
             driver.findElement(By.cssSelector("button[type='button']")).click();
-            System.out.println("Item searched and selected successfully");
 
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.modal-content")));
             driver.findElement(By.xpath("//button[text()='Continue Shopping']")).click();
-
+            System.out.println("✅ Item searched and selected successfully");
             
             
+          //Adding item to cart and proceeding to checkout   
             
-            //Adding item to cart and proceeding to checkout            
-            
-//            System.out.println("Item added to cart");
-
             driver.findElement(By.linkText("Cart")).click();
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//li[@class='active' and contains(text(),'Shopping Cart')]")));
             takeScreenshot(driver, "screenshots/4_cart.png");
