@@ -1,6 +1,6 @@
 # Test-Assignment-Lyxa
 
-This repository contains Selenium, Appium, JMeter, and Postman API test automation scripts and setup instructions.
+This repository contains Selenium, Appium, JMeter, and Postman API test automation scripts, manual test cases, summary report, and setup instructions.
 
 # Project Structure Overview
 
