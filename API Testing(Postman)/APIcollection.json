@@ -1,0 +1,239 @@
+{
+	"info": {
+		"_postman_id": "e34265e3-7179-4175-9246-9ea5aca98132",
+		"name": "API Test (Lyxa)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16446753",
+		"_collection_link": "https://ledgero-backend.postman.co/workspace/Ledgero-Backend-Workspace~8c25a22d-a575-4850-8af9-4bd129592d42/collection/16446753-e34265e3-7179-4175-9246-9ea5aca98132?action=share&source=collection_link&creator=16446753"
+	},
+	"item": [
+		{
+			"name": "LogIn",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let jsonData = pm.response.json();\r",
+							"pm.environment.set(\"token\", jsonData.token);\r",
+							"pm.test(\"Login successful\", () => {\r",
+							"    pm.expect(pm.response.code).to.equal(200);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"personal.sifat@gmail.com\",\r\n  \"password\": \"12345\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.ledgero.app/login",
+					"protocol": "https",
+					"host": [
+						"api",
+						"ledgero",
+						"app"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Registration",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Registration success\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(201);\r",
+							"    pm.expect(pm.response.json()).to.have.property(\"message\", \"\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"timezone\": \"GMT+6\",\r\n  \"email\": \"test1234@mail.com\",\r\n  \"password\": \"8tJ!AC7fXg6@#\",\r\n  \"firstName\": \"Monty\",\r\n  \"middleName\": \"Howard\",\r\n  \"lastName\": \"Smith\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://bizapi.finixcode.com/users",
+					"protocol": "https",
+					"host": [
+						"bizapi",
+						"finixcode",
+						"com"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Items",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Items retrieved successfully\", function () {\r",
+							"    const res = pm.response.json();\r",
+							"    \r",
+							"    // Check status\r",
+							"    pm.expect(res).to.be.an(\"object\");\r",
+							"    pm.expect(res).to.have.property(\"status\", \"SUCCESS\");\r",
+							"\r",
+							"    // Check data array\r",
+							"    pm.expect(res).to.have.property(\"data\").that.is.an(\"array\");\r",
+							"    pm.expect(res.data.length).to.be.above(0);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJwZXJzb25hbC5zaWZhdEBnbWFpbC5jb20iLCJmaXJzdE5hbWUiOm51bGwsImxhc3ROYW1lIjpudWxsLCJpc0FkbWluIjp0cnVlLCJpc1N1cGVyQWRtaW4iOnRydWUsImlhdCI6MTc0NTMwNTEzNCwiZXhwIjoyMzUwMTA1MTM0fQ.t6UbP5bgGlqH0r0hF1Jvwl5rtZzpjksGRwYG7puOa-E",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.ledgero.app/products?organization=1&pagination=true&skip=10",
+					"protocol": "https",
+					"host": [
+						"api",
+						"ledgero",
+						"app"
+					],
+					"path": [
+						"products"
+					],
+					"query": [
+						{
+							"key": "organization",
+							"value": "1"
+						},
+						{
+							"key": "pagination",
+							"value": "true"
+						},
+						{
+							"key": "skip",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Order",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Order placed successfully\", () => {\r",
+							"    const res = pm.response.json();\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);\r",
+							"    pm.expect(res).to.have.property(\"status\").that.is.oneOf([\"SUCCESS\", true]);\r",
+							"    pm.expect(res).to.have.any.keys(\"order_id\", \"message\"); // Adjust based on your actual response\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJwZXJzb25hbC5zaWZhdEBnbWFpbC5jb20iLCJmaXJzdE5hbWUiOm51bGwsImxhc3ROYW1lIjpudWxsLCJpc0FkbWluIjp0cnVlLCJpc1N1cGVyQWRtaW4iOnRydWUsImlhdCI6MTc0NTMwNTEzNCwiZXhwIjoyMzUwMTA1MTM0fQ.t6UbP5bgGlqH0r0hF1Jvwl5rtZzpjksGRwYG7puOa-E",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "  {\r\n  \t\"date\": 1742272708,\r\n    \"customer\": 280,\r\n    \"name\": 280,\r\n    \"isFactoryOrder\": false,\r\n    \"shippingAddress\": \"Uttara, Dhaka\",\r\n    \"orderDetails\": [\r\n        {\r\n            \"product\": 144,\r\n            \"quantity\": 100,\r\n            \"unit\": 1,\r\n            \"unitPrice\": 90,\r\n            \"subTotalPrice\": 9000,\r\n            \"totalPrice\": 9035\r\n        }\r\n    ],\r\n    \"totalQuantity\": 100,\r\n    \"subTotalPrice\": 9000,\r\n    \"weighingPrice\": 36,\r\n    \"totalPrice\": 9035,\r\n    \"received\": 9035,\r\n    \"dues\": 0,\r\n    \"changeDue\": 0,\r\n    \"organization\": \"1\",\r\n    \"dateString\": \"05-03-2025\",\r\n    \"ledger\": 173,\r\n    \"type\": \"SALE\"\r\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://api.ledgero.app/orders",
+					"protocol": "https",
+					"host": [
+						"api",
+						"ledgero",
+						"app"
+					],
+					"path": [
+						"orders"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
