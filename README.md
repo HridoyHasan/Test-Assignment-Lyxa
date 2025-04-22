@@ -1,46 +1,48 @@
 # Test-Assignment-Lyxa
 
+This repository contains Selenium, Appium, JMeter, and Postman API test automation scripts and setup instructions.
 
-# Setting Up Selenium Project in Eclipse
+# Project Structure Overview
 
-# STEP 1
-Install Required Software
+- Selenium – Web automation tests using Java and Maven in Eclipse
+- Appium – Mobile app automation using Node.js and VS Code
+- JMeter – Performance testing using .jmx files
+- Postman – API testing using Postman and Newman CLI
+
+# Selenium Setup (Java + Maven in Eclipse)
+
+## Step 1: Install Required Software
 
 Java JDK
-Download: https://www.oracle.com/java/technologies/downloads/
-Add JAVA_HOME to environment variables
-Add %JAVA_HOME%\bin to PATH
-Verify: java -version
+- Download: https://www.oracle.com/java/technologies/downloads/
+- Set JAVA_HOME environment variable
+- Add %JAVA_HOME%\bin to PATH
+- Verify installation:
+    java -version
 
 Eclipse IDE
-Download: https://www.eclipse.org/downloads/
-Select "Eclipse IDE for Java Developers"
+- Download: https://www.eclipse.org/downloads/
+- Select: Eclipse IDE for Java Developers
 
 Maven
-Eclipse includes Maven integration (m2e plugin)
-No separate installation needed
+- Maven comes bundled with Eclipse via m2e plugin
 
-# STEP 2
-Create Maven Project in Eclipse
+## Step 2: Create Maven Project
 
-Create new Maven project
-File > New > Project > Maven > Maven Project
+- In Eclipse: File > New > Project > Maven > Maven Project
+- Use the following project info:
+    Group Id: com.testing
+    Artifact Id: selenium-tests
+    Version: 0.0.1-SNAPSHOT
+    Packaging: jar
 
-Group Id: com.testing
-Artifact Id: selenium-tests
-Version: 0.0.1-SNAPSHOT
-Packaging: jar
-Click next-next-finish
+## Step 3: Add Dependencies
 
+- Open pom.xml
+- Click on "pom.xml" tab at bottom
+- Add the following under <dependencies>:
 
-# Step 3: Required dependencies
-
--Update pom.xml with dependencies
--Double-click pom.xml
--Click on "pom.xml" tab at bottom
--Add dependencies between <dependencies> tags
-
-  <dependencies>
+<dependencies>
     <dependency>
         <groupId>org.seleniumhq.selenium</groupId>
         <artifactId>selenium-java</artifactId>
@@ -51,32 +53,109 @@ Click next-next-finish
         <artifactId>webdrivermanager</artifactId>
         <version>5.3.2</version>
     </dependency>
-      <dependency>
+    <dependency>
         <groupId>commons-io</groupId>
         <artifactId>commons-io</artifactId>
         <version>2.14.0</version>
     </dependency>
-  </dependencies>
+</dependencies>
 
+- Save the file (Ctrl+S)
 
--Save pom.xml
--Save file (Ctrl+S)
+## Step 4: Create Package and Class
 
+- Create package:
+    Right-click src/main/java > New > Package
+    Name: Test
 
-# Step 4: Create Test Class
+- Create Java class:
+    Right-click Test package > New > Class
+    Name: Test
 
-Create package
-Right-click src/main/java > New > Package
-Name: Test
+## Step 5: Write and Run Test
 
-Create Java class
-Right-click Test package > New > Class
-Name: Test
+- Write test code in Test.java
+- To run:
+    Right-click Test.java > Run As > Java Application
 
-# Step 5: Write code into Test.java file
+- Screenshots (if implemented) will be saved in screenshots folder
 
-# Step 6: Run Test
-Right-click Test.java > Run As > Java Application
+# Appium Test Execution (Android)
 
-# Step 7: Check screenshots
-Screenshots saved in project's screenshots folder
+## Prerequisites
+
+- Install Node.js and Appium:
+    npm install -g appium
+
+- Android Studio with configured emulator (AVD)
+- Java JDK installed and JAVA_HOME configured
+- Appium Inspector or GUI (optional)
+
+## Steps
+
+1. Launch Android emulator:
+    emulator -avd <emulator_name>
+
+2. Start Appium server:
+    appium
+
+3. Open test project in VS Code
+
+4. Run test file:
+    node <your_test_script>.js
+
+5. Or use Mocha:
+    npx mocha <your_test_script>.js
+
+# JMeter Performance Tests
+
+## Prerequisites
+
+- Apache JMeter installed and path set
+- .jmx test plan file prepared
+
+## GUI Mode
+
+1. Open JMeter:
+    jmeter
+
+2. File > Open > Select .jmx file
+
+3. Click Start button to run the test
+
+4. Use listeners to view results
+
+## Command Line Mode
+
+Run the test:
+    jmeter -n -t path/to/testplan.jmx -l path/to/result.jtl -e -o path/to/html-report
+
+Flags:
+- -n: Run in non-GUI mode
+- -t: Path to JMX test file
+- -l: Log file (JTL)
+- -e: Generate HTML report
+- -o: Output directory
+
+Open index.html from output directory in browser to view results
+
+# Postman API Tests
+
+## Using Postman App
+
+1. Open Postman
+2. Import collection (.json) and environment (.json) files
+3. Select environment
+4. Use Collection Runner to execute
+
+## Using Newman CLI
+
+1. Install Newman:
+    npm install -g newman
+
+2. Run the collection:
+    newman run path/to/collection.json -e path/to/environment.json -r cli,html --reporter-html-export path/to/report.html
+
+Flags:
+- -r: Reporter output (CLI and HTML)
+- --reporter-html-export: Save HTML report to file
